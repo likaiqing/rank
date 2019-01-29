@@ -13,7 +13,10 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * @author: likaiqing
@@ -31,6 +34,12 @@ public class InfoServiceImpl implements InfoService {
     @Autowired
     HttpTools httpTools;
 
+    /**
+     * 获取用户信息，没有http请求并设置redis
+     *
+     * @param rid
+     * @return
+     */
     @Override
     public InfoModel getSetInfo(String rid) {
         String key = new StringBuffer(Conf.detailKeyPre).append(rid).append(Conf.detailKeySuf).toString();
@@ -56,5 +65,26 @@ public class InfoServiceImpl implements InfoService {
             e.printStackTrace();
         }
         return infoModel;
+    }
+
+    @Override
+    public List<String> nickNameByUids(List<String> uids) {
+        List<String> detailKeys = uids.stream().map(uid -> new StringBuffer(Conf.detailKeyPre).append(uid).append(Conf.detailKeySuf).toString()).collect(Collectors.toList());
+        List<String> details = redisTemplate.opsForValue().multiGet(detailKeys);
+        ObjectMapper mapper = new ObjectMapper();
+        List<String> list = new ArrayList<>();
+        for (String detail : details) {
+            String nickName = "";
+            try {
+                if (StringUtils.isEmpty(detail)) {
+                    continue;
+                }
+                nickName = mapper.readTree(detail).get("nickName").asText();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            list.add(nickName);
+        }
+        return list;
     }
 }

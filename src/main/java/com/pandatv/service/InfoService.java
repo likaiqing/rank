@@ -2,7 +2,7 @@ package com.pandatv.service;
 
 import com.pandatv.service.model.InfoModel;
 
-import java.io.IOException;
+import java.util.List;
 
 /**
  * @author: likaiqing
@@ -10,4 +10,6 @@ import java.io.IOException;
  **/
 public interface InfoService {
     InfoModel getSetInfo(String rid);
+
+    List<String> nickNameByUids(List<String> uids);
 }
