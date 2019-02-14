@@ -1,6 +1,7 @@
 package com.pandatv.controller;
 
 import com.pandatv.controller.viewobject.RankVO;
+import com.pandatv.interceptor.LoginRequired;
 import com.pandatv.response.CommonReturnType;
 import com.pandatv.service.InfoService;
 import com.pandatv.service.LevelService;
@@ -41,6 +42,7 @@ public class RankController {
     //    @GetMapping("/rank")
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     @ResponseBody
+//    @LoginRequired
     public CommonReturnType rank(@RequestParam(name = "key") String key,
                                  @RequestParam(name = "start", required = false, defaultValue = "0") long start,
                                  @RequestParam(name = "end", required = false, defaultValue = "110") long end,

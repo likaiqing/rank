@@ -12,4 +12,6 @@ public class Conf {
     public static final String detailKeySuf = ":info";
     public static final String levelKeyPre = "panda:level:usr:";
 
+    public static final String IS_LOGIN = "IS_LOGIN";
+    public static final String LOGIN_USER = "LOGIN_USER";
 }
