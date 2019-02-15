@@ -1,13 +1,14 @@
 package com.pandatv.controller;
 
 import com.pandatv.controller.viewobject.RankVO;
-import com.pandatv.interceptor.LoginRequired;
 import com.pandatv.response.CommonReturnType;
 import com.pandatv.service.InfoService;
 import com.pandatv.service.LevelService;
 import com.pandatv.service.RankService;
 import com.pandatv.service.model.InfoModel;
 import com.pandatv.service.model.RankModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,7 @@ import java.util.stream.Collectors;
 @Controller(value = "/rank")
 @RequestMapping("/rank")
 public class RankController {
+    Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     RankService rankService;
@@ -48,7 +50,7 @@ public class RankController {
                                  @RequestParam(name = "end", required = false, defaultValue = "110") long end,
                                  @RequestParam(name = "needLevel", required = false, defaultValue = "false") boolean needLevel,
                                  @RequestParam(name = "needInfo", required = false, defaultValue = "false") boolean needInfo) {
-
+        logger.info("key:" + key);
         List<RankModel> rank = rankService.getRank(key, start, end);
         List<RankVO> ranks = new ArrayList<>();
         for (RankModel model : rank) {
