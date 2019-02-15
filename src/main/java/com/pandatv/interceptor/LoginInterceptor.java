@@ -28,7 +28,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
             //这写你拦截要干的事，比如取缓存，session，权限判断等
             Boolean isLogin = (Boolean) httpServletRequest.getSession().getAttribute(Conf.IS_LOGIN);
 //            httpServletRequest.getSession().getAttribute(Conf.LOGIN_USER);
-            System.out.println("---------------- isLogin:" + isLogin);
             return true;
         }
     }

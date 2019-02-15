@@ -12,9 +12,9 @@ fi
 BIN_HOME=$(dirname $SHELL_BIN)
 APP_HOME=$BIN_HOME/target
 PID_LOG=$APP_HOME/pid
+echo "PID_LOG:$PID_LOG"
 
-
-JAR_NAME=$APP_HOME/rank-1.0-SNAPSHOT.jar
+JAR_NAME=$APP_HOME/rank.jar
 
 
 #JVM启动参数
@@ -25,7 +25,9 @@ JAVA_OPTS="-Duser.timezone=GMT+8 -server -Xmx4096m -Xmx4096m -XX:SurvivorRatio=4
 
 JAVA=`which java`
 
-
+env=$1
+env=${env:=prod}
+echo "env:$env"
 
 start(){
 echo  "Starting.... "
@@ -39,7 +41,7 @@ fi
 if [ "$1" == "test" ];then
     eval exec $JAVA $JAVA_OPTS -jar  $JAR_NAME
 else
-   nohup $JAVA $JAVA_OPTS -jar  $JAR_NAME  > "$APP_HOME/start.log" 2>&1   &
+   nohup $JAVA $JAVA_OPTS -jar  $JAR_NAME --spring.profiles.active=$env > "$APP_HOME/start.log" 2>&1   &
 fi
 
 	if [ $? -eq 0 ]
