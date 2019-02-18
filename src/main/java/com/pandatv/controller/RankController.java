@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,6 +42,9 @@ public class RankController {
     @Autowired
     LevelService levelService;
 
+    @Autowired
+    private HttpServletRequest httpServletRequest;//说明是单例的模式,通过spring bean包装之后的httpServletRequest，本质是proxy,内部有ThreadLocal方式的map,去让用户在每个线程当中处理自己的request,并且有ThreadLocal清楚的机制,因此可放心使用
+
     //    @GetMapping("/rank")
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     @ResponseBody
@@ -50,7 +54,7 @@ public class RankController {
                                  @RequestParam(name = "end", required = false, defaultValue = "110") long end,
                                  @RequestParam(name = "needLevel", required = false, defaultValue = "false") boolean needLevel,
                                  @RequestParam(name = "needInfo", required = false, defaultValue = "false") boolean needInfo) {
-        logger.info("key:" + key);
+
         List<RankModel> rank = rankService.getRank(key, start, end);
         List<RankVO> ranks = new ArrayList<>();
         for (RankModel model : rank) {
@@ -70,6 +74,8 @@ public class RankController {
                 }
             }
         }
+        String ip = httpServletRequest.getHeader("X-Real-IP");
+        logger.info("ip:{},key:{},start:{},end:{},needLevel:{},needInfo:{},ranks.size:{}", new Object[]{ip, key, start, end, needLevel, needInfo, ranks.size()});
         return CommonReturnType.create(ranks);
     }
 
