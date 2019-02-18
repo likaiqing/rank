@@ -10,8 +10,8 @@ else
   SHELL_BIN="$0"
 fi
 BIN_HOME=$(dirname $SHELL_BIN)
-APP_HOME=$BIN_HOME/target
-PID_LOG=$APP_HOME/pid
+APP_HOME=$BIN_HOME/../
+PID_LOG=$APP_HOME/rank_pid
 echo "PID_LOG:$PID_LOG"
 
 JAR_NAME=$APP_HOME/rank.jar
