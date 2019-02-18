@@ -28,6 +28,7 @@ JAVA=`which java`
 
 start(){
 conf_env=$1
+conf_env=${conf_env:=prod}
 echo "conf_env:$conf_env"
 echo  "Starting.... "
 if [ -f "$PID_LOG" ];then
