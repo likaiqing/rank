@@ -3,3 +3,5 @@ target
 rank.iml
 src/test
 logs
+html
+static
