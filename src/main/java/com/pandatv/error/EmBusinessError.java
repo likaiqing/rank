@@ -6,6 +6,9 @@ package com.pandatv.error;
  **/
 public enum EmBusinessError implements CommonError {
     PARAMETER_VALIDATION_ERROR(10001, "参数不合法"),//如果是0开头，前端会被去掉
+    PARAMETER_KEY_MUST(10003, "key must"),
+    PARAMETER_START_POSITIVE_MUST(10004, "start must positive"),
+    PARAMETER_END_OUT_RANGE(10004, "end out of range"),
     UNKNOWN_ERROR(10002, "未知错误"),
 
 

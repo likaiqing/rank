@@ -1,12 +1,15 @@
 package com.pandatv.controller;
 
 import com.pandatv.controller.viewobject.RankVO;
+import com.pandatv.error.BusinessException;
+import com.pandatv.error.EmBusinessError;
 import com.pandatv.response.CommonReturnType;
 import com.pandatv.service.InfoService;
 import com.pandatv.service.LevelService;
 import com.pandatv.service.RankService;
 import com.pandatv.service.model.InfoModel;
 import com.pandatv.service.model.RankModel;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -28,7 +31,7 @@ import java.util.stream.Collectors;
 @Controller(value = "/rank")
 @RequestMapping("/rank")
 @CrossOrigin(origins = {"*"}, allowCredentials = "true")
-public class RankController {
+public class RankController extends BaseController {
     Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
@@ -47,12 +50,21 @@ public class RankController {
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     @ResponseBody
 //    @LoginRequired
-    public CommonReturnType rank(@RequestParam(name = "key") String key,
+    public CommonReturnType rank(@RequestParam(name = "key", required = false) String key,
                                  @RequestParam(name = "start", required = false, defaultValue = "0") long start,
                                  @RequestParam(name = "end", required = false, defaultValue = "110") long end,
                                  @RequestParam(name = "needLevel", required = false, defaultValue = "false") boolean needLevel,
-                                 @RequestParam(name = "needInfo", required = false, defaultValue = "false") boolean needInfo) {
+                                 @RequestParam(name = "needInfo", required = false, defaultValue = "false") boolean needInfo) throws BusinessException {
 
+        if (StringUtils.isEmpty(key)) {
+            throw new BusinessException(EmBusinessError.PARAMETER_KEY_MUST);
+        }
+        if (start < 0) {
+            throw new BusinessException(EmBusinessError.PARAMETER_START_POSITIVE_MUST);
+        }
+        if (end > 110) {
+            throw new BusinessException(EmBusinessError.PARAMETER_END_OUT_RANGE);
+        }
         List<RankModel> rank = rankService.getRank(key, start, end);
         List<RankVO> ranks = new ArrayList<>();
         for (RankModel model : rank) {
@@ -89,7 +101,16 @@ public class RankController {
     @ResponseBody
     public CommonReturnType u2qWithAncKey(@RequestParam(name = "key") String key,
                                           @RequestParam(name = "start", required = false, defaultValue = "0") long start,
-                                          @RequestParam(name = "end", required = false, defaultValue = "110") long end) {
+                                          @RequestParam(name = "end", required = false, defaultValue = "110") long end) throws BusinessException {
+        if (StringUtils.isEmpty(key)) {
+            throw new BusinessException(EmBusinessError.PARAMETER_KEY_MUST);
+        }
+        if (start < 0) {
+            throw new BusinessException(EmBusinessError.PARAMETER_START_POSITIVE_MUST);
+        }
+        if (end > 110) {
+            throw new BusinessException(EmBusinessError.PARAMETER_END_OUT_RANGE);
+        }
         List<RankModel> ranks = rankService.getRank(key, start, end);
         List<String> qids = ranks.stream().map(r -> r.getRid()).collect(Collectors.toList());
         String mapKey = key.replace("anc", "u2q").replace(":rank", ":map").replace(":signUp:", ":");

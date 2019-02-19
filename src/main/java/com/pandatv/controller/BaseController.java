@@ -3,6 +3,7 @@ package com.pandatv.controller;
 import com.pandatv.error.BusinessException;
 import com.pandatv.error.EmBusinessError;
 import com.pandatv.response.CommonReturnType;
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
