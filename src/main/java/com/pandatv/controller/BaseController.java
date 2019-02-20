@@ -38,14 +38,14 @@ public class BaseController {
 ////        commonReturnType.setData(ex);
 //        commonReturnType.setData(responseData);
             HashMap<Object, Object> responseData = new HashMap<>();
-            responseData.put("errCode", businessException.getErrCode());
-            responseData.put("errMsg", businessException.getErrMsg());
-            return CommonReturnType.create(responseData, "fail");
+//            responseData.put("errCode", businessException.getErrCode());
+//            responseData.put("errMsg", businessException.getErrMsg());
+            return CommonReturnType.create(responseData, businessException.getErrCode(), ex.getMessage());
         } else {
             HashMap<Object, Object> responseData = new HashMap<>();
-            responseData.put("errCode", EmBusinessError.UNKNOWN_ERROR.getErrCode());
-            responseData.put("errMsg", EmBusinessError.UNKNOWN_ERROR.getErrMsg());
-            return CommonReturnType.create(responseData, "fail");
+//            responseData.put("errCode", EmBusinessError.UNKNOWN_ERROR.getErrCode());
+//            responseData.put("errMsg", EmBusinessError.UNKNOWN_ERROR.getErrMsg());
+            return CommonReturnType.create(responseData, EmBusinessError.UNKNOWN_ERROR.getErrCode(), ex.getMessage());
         }
 
     }
