@@ -8,7 +8,7 @@ public class CommonReturnType {
     //表明对应请求的返回处理结果"success"或"fail"
 //    private String status;
     //为了统一接口格式，改为errno,errmsg,data
-    private Integer errno;
+    private int errno;
     private String errmsg;
 
     //若status=success,则data内返回前端需要的json数据
@@ -28,7 +28,7 @@ public class CommonReturnType {
         return type;
     }
 
-    public static CommonReturnType create(Object result, Integer errno, String errmsg) {
+    public static CommonReturnType create(Object result, int errno, String errmsg) {
         CommonReturnType type = new CommonReturnType();
         type.setErrno(errno);
         type.setErrmsg(errmsg);
@@ -45,11 +45,11 @@ public class CommonReturnType {
 //    }
 
 
-    public Integer getErrno() {
+    public int getErrno() {
         return errno;
     }
 
-    public void setErrno(Integer errno) {
+    public void setErrno(int errno) {
         this.errno = errno;
     }
 
