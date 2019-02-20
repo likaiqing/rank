@@ -27,6 +27,7 @@ public class BaseController {
     @ResponseBody
     public Object handlerException(HttpServletRequest request, Exception ex) {
         logger.info(ex.getMessage());
+        ex.printStackTrace();
         if (ex instanceof BusinessException) {
             BusinessException businessException = (BusinessException) ex;
 //        CommonReturnType commonReturnType = new CommonReturnType();
