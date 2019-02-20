@@ -22,6 +22,7 @@ public class CommonReturnType {
 
     public static CommonReturnType create(Object result, String errmsg) {
         CommonReturnType type = new CommonReturnType();
+        type.setErrno(0);
         type.setData(result);
         type.setErrmsg(errmsg);
         return type;
