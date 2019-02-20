@@ -3,7 +3,8 @@ package com.pandatv.controller;
 import com.pandatv.error.BusinessException;
 import com.pandatv.error.EmBusinessError;
 import com.pandatv.response.CommonReturnType;
-import org.springframework.boot.web.servlet.error.ErrorController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,13 +19,14 @@ import java.util.HashMap;
  **/
 public class BaseController {
     public static final String CONTENT_TYPE_FORMED = "application/x-www-form-urlencoded";
-
+    Logger logger = LoggerFactory.getLogger(getClass());
 
     //定义Exceptionhandler解决未被controller层吸收的exception
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public Object handlerException(HttpServletRequest request, Exception ex) {
+        logger.info(ex.getMessage());
         if (ex instanceof BusinessException) {
             BusinessException businessException = (BusinessException) ex;
 //        CommonReturnType commonReturnType = new CommonReturnType();
@@ -34,7 +36,6 @@ public class BaseController {
 //        responseData.put("errMsg", businessException.getErrMsg());
 ////        commonReturnType.setData(ex);
 //        commonReturnType.setData(responseData);
-
             HashMap<Object, Object> responseData = new HashMap<>();
             responseData.put("errCode", businessException.getErrCode());
             responseData.put("errMsg", businessException.getErrMsg());
