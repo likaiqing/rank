@@ -12,6 +12,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import java.net.UnknownHostException;
 
 /**
+ * https://www.cnblogs.com/taiyonghai/p/9454764.html
  * @author: likaiqing
  * @create: 2019-01-25 11:47
  **/
