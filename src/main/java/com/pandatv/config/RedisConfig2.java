@@ -12,6 +12,8 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 /**
  * @author: likaiqing
  * @create: 2019-02-22 12:14
+ * 采用jedis连接
+ * https://juejin.im/post/5ba0a098f265da0adb30c684
  **/
 @Configuration
 public class RedisConfig2 {

@@ -15,6 +15,7 @@ import java.net.UnknownHostException;
  * https://www.cnblogs.com/taiyonghai/p/9454764.html
  * @author: likaiqing
  * @create: 2019-01-25 11:47
+ * lettuce
  **/
 //@Configuration
 //@AutoConfigureAfter(RedisAutoConfiguration.class)
