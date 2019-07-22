@@ -20,7 +20,7 @@ JAR_NAME=$APP_HOME/rank.jar
 #JVM启动参数
 #-server:一定要作为第一个参数,在多个CPU时性能佳
 #-Xloggc:记录GC日志,这里建议写成绝对路径,如此便可在任意目录下执行该shell脚本
-JAVA_OPTS="-Duser.timezone=GMT+8 -server -Xmx4096m -Xmx4096m -XX:SurvivorRatio=4 -XX:+DisableExplicitGC -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:+UseCMSInitiatingOccupancyOnly -XX:CMSInitiatingOccupancyFraction=70 -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:$BIN_HOME/../logs/gc.log -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=$BIN_HOME/../logs/ -XX:ErrorFile=$BIN_HOME/../logs/hs_err_pid%p.log"
+JAVA_OPTS="-Duser.timezone=GMT+8 -server -Xms4096m -Xmx4096m -XX:SurvivorRatio=4 -XX:+DisableExplicitGC -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:+UseCMSInitiatingOccupancyOnly -XX:CMSInitiatingOccupancyFraction=70 -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:$BIN_HOME/../logs/gc.log -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=$BIN_HOME/../logs/ -XX:ErrorFile=$BIN_HOME/../logs/hs_err_pid%p.log"
 
 
 JAVA=`which java`
